@@ -1,1 +1,1 @@
-python inputOutputSubmarine.py
+python keyBoardInput.py
