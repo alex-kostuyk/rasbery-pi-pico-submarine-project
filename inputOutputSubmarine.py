@@ -3,6 +3,9 @@ import serial.tools.list_ports
 import struct
 import time
 import numpy
+import keyBoardInput
+
+
 
 def findSerialPortByName(Name):
     available_ports = list(serial.tools.list_ports.comports())
@@ -22,15 +25,20 @@ if joystick_device!=None:
 
 
 
+
 update_interval = 0.7
 last_update_time = time.time()
+data = []
 
 
 while True:
     if joystick_device!=None:
         data = numpy.array(serJoy.readline().decode('utf-8').strip().split(' ')).astype(int)
-    #else:
-        
+    else:
+        data = keyBoardInput.data
+
+
+
 
     data = numpy.append(data, 0)
 
@@ -41,7 +49,10 @@ while True:
     packed_data = b''
     for value in data:
         packed_data += struct.pack('B', value)
-
+        
+        
+    print(data, end='\r')
+    
     ser.write(packed_data)
 
     time.sleep(0.02)

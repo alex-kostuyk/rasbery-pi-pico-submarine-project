@@ -1,4 +1,5 @@
 from pynput import keyboard
+import threading
 
 data = [50] * 5
 
@@ -23,14 +24,14 @@ def get_power_target_value(value, key1_pressed, key2_pressed):
 
 
 def key_action():
-    
     data[0] = get_move_target_value(keys['w'],keys['s'])
     data[1] = get_move_target_value(keys['a'],keys['d'])
     data[2] = 0 if keys['space'] else 2 if keys['shift'] else 1
     data[3] = get_power_target_value(data[3],keys['q'],keys['e'])
     data[4] = get_power_target_value(data[4],keys['r'],keys['f'])
-     
-    print(data, end='\r')
+
+
+key_action()
     
     
 def process_key(key, key_state):
@@ -45,19 +46,19 @@ def process_key(key, key_state):
             keys['shift'] = key_state
     key_action()
 
-def on_key_release(key):
-    process_key(key, False) 
-    
+def key_listener_thread():
+    def on_key_release(key):
+        process_key(key, False)
 
-def on_key_press(key): 
-    process_key(key, True)
+    def on_key_press(key):
+        process_key(key, True)
 
+    with keyboard.Listener(on_press=on_key_press, on_release=on_key_release) as listener:
+        listener.join()
 
-
-
-with keyboard.Listener(on_press=on_key_press, on_release=on_key_release) as listener:
-    listener.join()
-    
+key_listener = threading.Thread(target=key_listener_thread)
+key_listener.daemon = True 
+key_listener.start()
 
 
 
