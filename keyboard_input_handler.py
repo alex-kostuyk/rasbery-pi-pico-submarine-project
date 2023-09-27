@@ -16,24 +16,23 @@ keys = {
     'shift': False
 }
 
+
 def get_move_target_value(key1_pressed, key2_pressed):
     return 50 if key1_pressed and key2_pressed else 100 if key1_pressed else 0 if key2_pressed else 50
+
 
 def get_power_target_value(value, key1_pressed, key2_pressed):
     return min(value + 5, 100) if key1_pressed else max(value - 5, 0) if key2_pressed else value
 
 
 def key_action():
-    data[0] = get_move_target_value(keys['w'],keys['s'])
-    data[1] = get_move_target_value(keys['a'],keys['d'])
+    data[0] = get_move_target_value(keys['w'], keys['s'])
+    data[1] = get_move_target_value(keys['a'], keys['d'])
     data[2] = 0 if keys['space'] else 2 if keys['shift'] else 1
-    data[3] = get_power_target_value(data[3],keys['q'],keys['e'])
-    data[4] = get_power_target_value(data[4],keys['r'],keys['f'])
+    data[3] = get_power_target_value(data[3], keys['q'], keys['e'])
+    data[4] = get_power_target_value(data[4], keys['r'], keys['f'])
 
-
-key_action()
-    
-    
+        
 def process_key(key, key_state):
     try:
         key_name = key.char
@@ -46,6 +45,7 @@ def process_key(key, key_state):
             keys['shift'] = key_state
     key_action()
 
+
 def key_listener_thread():
     def on_key_release(key):
         process_key(key, False)
@@ -56,11 +56,8 @@ def key_listener_thread():
     with keyboard.Listener(on_press=on_key_press, on_release=on_key_release) as listener:
         listener.join()
 
+
+key_action()
 key_listener = threading.Thread(target=key_listener_thread)
 key_listener.daemon = True 
 key_listener.start()
-
-
-
-
-

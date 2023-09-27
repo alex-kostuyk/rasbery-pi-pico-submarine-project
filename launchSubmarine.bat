@@ -1,1 +1,1 @@
-python inputOutputSubmarine.py
+python serial_communication.py
