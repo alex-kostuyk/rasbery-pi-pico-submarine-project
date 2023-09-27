@@ -11,3 +11,24 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+#telemetryContainer{
+    background-color: rgba(0, 0, 0, 0.548);
+    border-bottom-right-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: fit-content;
+    width: fit-content;
+}
+
+#dataContainer{
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dataContainer>h1{
+    color: white;
+}

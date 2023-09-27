@@ -1,4 +1,5 @@
-from machine import Pin, UART, I2C, PWM
+from machine import Pin, UART, I2C, PWM, reset
+import machine
 import struct
 import time
 import BME280
@@ -29,30 +30,32 @@ LED = Pin(25, Pin.OUT)
 
 bme = BME280.BME280(i2c=i2c)
 
+
 while True:
-    
+        
     LED.toggle()
     if uart.any():
         data = struct.unpack("BBBBBB",  uart.read())
 
         light_pwm.duty_u16(int(655.36 * data[4]))
-        
+            
         #send telemetry
         if data[-1] == 1:
             max485_read_write_pin.value(1)
-            
+                
             temp = int(bme.read_temperature()/20)
             deep = (float(bme.pressure)-1005)/100
             voltage = int((battery_voltage.read_u16()/65535)*100)
 
-            
+                
             uart.write(struct.pack("BBBB", *[temp, int(deep), int((deep % 1) * 100), voltage]))
-            
+                
             time.sleep(0.02)
             LED.toggle()
             max485_read_write_pin.value(0)
+                
+                
             
             
-        
-        
-    time.sleep(0.02)
+        time.sleep(0.02)
+
