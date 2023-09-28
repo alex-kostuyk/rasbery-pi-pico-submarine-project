@@ -28,7 +28,7 @@ if joystick_device is not None:
 
 def write():
     global data, joystick_device, ser_joystick, fresh_rate
-    telemetry_update_interval = 0.7
+    telemetry_update_interval = 2
     last_update_time = time.time()
     
     while True:
@@ -64,8 +64,9 @@ def write():
 
 def read():
     global data, fresh_rate
-    
     while True:
+        time.sleep(fresh_rate)
+        
         if ser.inWaiting() > 0:     
             telemetry_raw = struct.unpack("BBBB", ser.read(4))
                 
@@ -78,12 +79,10 @@ def read():
                 "buoyancy": ("up" if data[2] == 0 else "down" if data[2] == 2 else "neutral")
             }
             
-            with open("telemetry.json", "w") as json_file:
-                json.dump(telemetry, json_file)
+            with open("telemetry.js", "w") as js_file:
+                js_file.write(f"var myObject = {telemetry};")
                 
-        time.sleep(fresh_rate)
-        
-
+                
 try:
     read_thread = threading.Thread(target=read)
     write_thread = threading.Thread(target=write)

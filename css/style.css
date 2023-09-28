@@ -1,6 +1,7 @@
 video{
     width: 100%;
     height: 100vh;
+
 }
 
 body{
@@ -15,20 +16,23 @@ body{
 #telemetryContainer{
     background-color: rgba(0, 0, 0, 0.548);
     border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
     height: fit-content;
     width: fit-content;
 }
 
 #dataContainer{
-    margin: 15px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#dataContainer>h1{
+#dataContainer>pre{
     color: white;
+    font-size: 15pt;
 }

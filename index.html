@@ -7,18 +7,22 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <title>Submarine project</title>
         <link href="css/style.css" rel="stylesheet"/>
+
+        <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
     </head>
 
     <body>
         <video autoplay="" id="webcam" playsinline=""></video>
         <div id="telemetryContainer">
             <div id="dataContainer">
-                <h1 id="t"></h1>
+                <pre id="telemetry"></pre>
             </div>
         </div>
     
     </body>
-    
+    <script src="telemetry.js"></script>
     <script src="js/viewCamera.js"> </script>
     <script src="js/outputTelemetry.js"> </script>
 
