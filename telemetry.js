@@ -1,1 +1,1 @@
-var myObject = {'temperature': 24.8, 'deep': 0.03, 'voltage': 0.89, 'engine_max_power ': 45, 'flashlight_brightness: ': 50, 'buoyancy': 'neutral'};
+var myObject = {'temperature': 24.8, 'deep': 0.03, 'voltage': 2.57, 'engine_max_power ': 10, 'flashlight_brightness: ': 55, 'buoyancy': 'neutral'};
